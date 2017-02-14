@@ -1,0 +1,6 @@
+name = Konnect Tweaks 
+description = All custom tweaks done here.
+package = Tickets - Custom
+core = 7.x
+
+dependencies[] = ticket

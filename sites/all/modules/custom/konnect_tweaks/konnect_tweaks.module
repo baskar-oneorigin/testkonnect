@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Code for Konnect custom tweakings.
+ */
+ 
+ 
+ /**
+ * Implements hook_form_alter().
+ * Find the ticket registeration type and assign the user role to user.
+ */
+function konnect_tweaks_form_alter(&$form, &$form_state, $form_id) {
+ 
+}
+
+function konnect_tweaks_query_alter($query) {
+
+  if (isset($query->alterMetaData)) {
+    if (isset($query->alterMetaData['view'])) {
+      if($query->alterMetaData['view']->name == 'related_events' || $query->alterMetaData['view']->name == 'past_related_events' || $query->alterMetaData['view']->name == 'event_listing') {
+        $fields =& $query->getGroupBy();
+        // Tried various fields to check which was the field creating the problem.
+        unset($fields['score']);
+        $query->groupBy('nid');
+      }
+    }
+  }
+}
